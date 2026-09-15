@@ -49,7 +49,7 @@ const NavBar = () => {
           <div className="relative flex">
 
             <input
-              className="bg-white p-1 pt-3 pb-3 w-[25rem] outline-none text-black rounded-sm hover:border-3 border-cyan-800"
+              className="hidden md:flex lg:flex bg-white p-1 pt-3 pb-3 w-[25rem] outline-none text-black rounded-sm hover:border-3 border-cyan-800"
               type="search"
               name="search"
               id="search-btn"
@@ -65,7 +65,7 @@ const NavBar = () => {
 
             <button
               onClick={handleSearch}
-              className="ml-4 bg-cyan-400 pt-1 pb-1 pl-3 pr-3 rounded-sm flex justify-center items-center"
+              className="hidden md:flex lg:flex ml-4 bg-cyan-400 pt-1 pb-1 pl-3 pr-3 rounded-sm flex justify-center items-center"
             >
               <i className="fa-regular fa-paper-plane"></i>
             </button>
@@ -108,7 +108,7 @@ const NavBar = () => {
 
         <div className="flex gap-10 items-center">
 
-          <div className="text-2xl">
+          <div className="text-2xl hidden md:flex lg:flex">
             <i className="fa-solid fa-shuffle"></i>
           </div>
 
