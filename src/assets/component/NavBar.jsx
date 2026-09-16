@@ -48,8 +48,9 @@ const NavBar = () => {
 
           <div className="relative flex">
 
-            <input
-              className="hidden md:flex lg:flex bg-white p-1 pt-3 pb-3 w-[25rem] outline-none text-black rounded-sm hover:border-3 border-cyan-800"
+            <div>
+              <input
+              className="hidden md:flex lg:flex bg-white p-1 pt-3 pb-3 w-[25rem] outline-none text-black rounded-sm  border-cyan-800"
               type="search"
               name="search"
               id="search-btn"
@@ -62,6 +63,7 @@ const NavBar = () => {
                 }
               }}
             />
+            </div>
 
             <button
               onClick={handleSearch}
