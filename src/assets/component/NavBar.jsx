@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { signInWithPopup, onAuthStateChanged } from "firebase/auth";
+import { auth, googleProvider } from "../component/FireBase/fireBase";
 
 const NavBar = () => {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
+  const [user, setUser] = useState(null);
 
+  console.log(user);
   const navigate = useNavigate();
 
   const handleSearch = async () => {
@@ -12,12 +16,12 @@ const NavBar = () => {
 
     try {
       const response = await fetch(
-        `https://aniwixi.xyz/wp-json/aniwixi/v1/search?query=${search}`
+        `https://aniwixi.xyz/wp-json/aniwixi/v1/search?query=${search}`,
       );
 
       const data = await response.json();
 
-    //   console.log(data);
+      //   console.log(data);
 
       setResults(data.data || []);
     } catch (error) {
@@ -32,37 +36,54 @@ const NavBar = () => {
     navigate(`/details/${id}`);
   };
 
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+
+      console.log("User:", result.user);
+    } catch (error) {
+      console.log("Login Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div className=" z-50 w-full sticky top-0">
       <nav className="bg-[#202125]/50 pt-4 pb-4 text-white flex justify-between items-center pl-16 pr-16">
-
         <div className="flex gap-10 justify-center items-center">
-
           <div className="text-2xl">
             <i className="fa-solid fa-bars"></i>
           </div>
 
           <NavLink to="/" className="text-md lg:text-2xl">
-            <h2 className="flex text-md">Anime <span className="text-cyan-200">Bond</span>.to</h2>
+            <h2 className="flex text-md">
+              Anime <span className="text-cyan-200">Bond</span>.to
+            </h2>
           </NavLink>
 
           <div className="relative flex">
-
             <div>
               <input
-              className="hidden md:flex lg:flex bg-white p-1 pt-3 pb-3 w-[25rem] outline-none text-black rounded-sm  border-cyan-800"
-              type="search"
-              name="search"
-              id="search-btn"
-              placeholder="Search here"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleSearch();
-                }
-              }}
-            />
+                className="hidden md:flex lg:flex bg-white p-1 pt-3 pb-3 w-[25rem] outline-none text-black rounded-sm  border-cyan-800"
+                type="search"
+                name="search"
+                id="search-btn"
+                placeholder="Search here"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSearch();
+                  }
+                }}
+              />
             </div>
 
             <button
@@ -74,14 +95,12 @@ const NavBar = () => {
 
             {results.length > 0 && (
               <div className="absolute top-14 left-0 w-[29rem] h-[30rem] bg-[#202125]/50 rounded-sm shadow-lg overflow-y-scroll">
-
                 {results.map((anime) => (
                   <div
                     key={anime.anilist_id}
                     onClick={() => handleAnimeClick(anime.anilist_id)}
                     className="flex gap-3 p-3 cursor-pointer hover:bg-gray-700"
                   >
-
                     <img
                       src={anime.poster}
                       alt=""
@@ -89,39 +108,52 @@ const NavBar = () => {
                     />
 
                     <div>
-                      <h3 className="font-bold">
-                        {anime.title?.romaji}
-                      </h3>
+                      <h3 className="font-bold">{anime.title?.romaji}</h3>
 
                       <p className="text-sm text-gray-400">
                         {anime.title?.english}
                       </p>
                     </div>
-
                   </div>
                 ))}
-
               </div>
             )}
-
           </div>
-
         </div>
 
         <div className="flex gap-10 items-center">
-
           <div className="text-2xl hidden md:flex lg:flex">
             <i className="fa-solid fa-shuffle"></i>
           </div>
 
-         <NavLink to="/login">
-           <button  className="bg-cyan-400 pt-2 pb-2 pl-4 pr-4 text-[1em] rounded-sm font-bold cursor-pointer">
-            Login
-          </button>
-         </NavLink>
+          {user ? (
+            <div className="flex items-center gap-3">
+              <img
+                src={user.photoURL}
+                alt={user.displayName}
+                className="w-10 h-10 rounded-full"
+              />
 
+              <span className="font-bold">{user.displayName}</span>
+            </div>
+          ) : (
+            <button
+              onClick={handleGoogleLogin}
+              className="bg-cyan-400 pt-2 pb-2 pl-4 pr-4 text-[1em] rounded-sm font-bold cursor-pointer"
+            >
+              Login
+            </button>
+          )}
+
+          <NavLink to="/login">
+            <button
+              onClick={handleGoogleLogin}
+              className="bg-cyan-400 pt-2 pb-2 pl-4 pr-4 text-[1em] rounded-sm font-bold cursor-pointer"
+            >
+              Login
+            </button>
+          </NavLink>
         </div>
-
       </nav>
     </div>
   );

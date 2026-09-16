@@ -5,7 +5,7 @@ import AnimeInfo from "./assets/component/AnimeInfo";
 import Layout from "./Pages/Layout";
 import Streaming from "./assets/component/Streaming";
 import Login from "./Pages/Login";
-
+// import LogoBgRemoved from './assets/component/heroImage/LogoBgRemoved.png'
 function App() {
   const router = createBrowserRouter([
     {
