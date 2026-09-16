@@ -12,20 +12,18 @@ const Hero = ({ animePromise }) => {
   return (
     <>
       <div className="relative w-full min-h-screen overflow-hidden">
-  {/* Background Image */}
+
   <img
     className="absolute inset-0 w-full h-full object-cover"
     src={animePoster}
     alt=""
   />
 
-  {/* Dark Overlay */}
   <div className="absolute inset-0 bg-black/50 backdrop-blur-xs"></div>
 
-  {/* Content */}
+
   <div className="relative z-10 min-h-screen text-white flex flex-col lg:flex-row justify-center lg:justify-between items-center px-5 sm:px-8 md:px-12 lg:px-20 xl:px-32 py-16 lg:py-10 gap-12 lg:gap-10">
 
-    {/* Left Content */}
     <div className="flex flex-col gap-5 sm:gap-6 w-full lg:w-1/2 text-center lg:text-left">
 
       <h1 className="text-sm sm:text-base md:text-lg lg:text-2xl font-bold text-cyan-400 filter drop-shadow-[0_0_15px_rgba(34,211,238,0.8)]">
@@ -46,7 +44,7 @@ const Hero = ({ animePromise }) => {
 
     </div>
 
-    {/* Right Image */}
+  
     <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
       <img
         className="w-full max-w-[18rem] sm:max-w-[22rem] md:max-w-[26rem] lg:max-w-[30rem] h-auto lg:h-[25rem] object-cover rounded-lg shadow-2xl"

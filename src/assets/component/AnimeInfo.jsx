@@ -2,6 +2,7 @@ import { NavLink, useParams } from "react-router-dom";
 import posterr from "./heroImage/ichigo-kurosaki-5120x2880-27177.jpg";
 import sukuna from "./heroImage/jujutsu-kaisen-1284x2778-27211.png";
 import { use, useEffect, useState } from "react";
+import Streaming from "./Streaming";
 
 const AnimeInfo = () => {
   const { id } = useParams();
@@ -28,7 +29,36 @@ const AnimeInfo = () => {
 
   if (loading) return <div className="flex justify-center items-center w-full h-screen text-white text-6xl">Loading...</div>;
 
+// Episodes List 
+
+const episodeLists  = () => {
+
+  return(
+   
+  <div className="flex flex-col gap-2">
+                  { animeData.data?.episodes?.map((episode, index) => (
+                    
+                    <NavLink
+                      key={episode.episode_no || index}
+                      to={`/anime/${id}/episode/${episode.episode_no}`}
+                      className="flex items-center justify-between w-full p-3 bg-gray-800/70 hover:bg-gray-700 rounded-lg transition"
+                    >
+                      <span>Episode {episode.episode_no}</span>
+
+                      <span className="text-gray-400">▶</span>
+                    </NavLink>
+                  ))}
+                </div>
+    
+    
+  )
+}
+
+
+
+
   return (
+     <>
     <div className="relative min-h-screen text-white overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
@@ -102,11 +132,11 @@ const AnimeInfo = () => {
               <div className="mt-10">
                 <h2 className="text-2xl font-bold mb-5">Characters</h2>
 
-                <div className="flex gap-5 overflow-x-auto pb-5">
-                  {animeData.data?.characters?.map((character, index) => (
+                <div className="flex gap-5 overflow-auto [&&::-webkit-scrollbar]:h-2 [&&::-webkit-scrollbar-thumb]:bg-gray-400 pb-5">
+                 {animeData.data?.characters?.map((character, index) => (
                     <div
                       key={character.id || index}
-                      className="min-w-32 bg-black/40 rounded-xl p-3"
+                      className=" flex min-w-32  bg-black/40 rounded-xl p-3"
                     >
                       <img
                         className="w-28 h-40 object-cover rounded-lg"
@@ -128,27 +158,19 @@ const AnimeInfo = () => {
                 All Episodes
               </h1>
 
-              <div className="max-h-[600px] overflow-y-auto p-3">
-                <div className="flex flex-col gap-2">
-                  {animeData.data?.episodes?.map((episode, index) => (
-                    
-                    <NavLink
-                      key={episode.episode_no || index}
-                      to={`/anime/${id}/episode/${episode.episode_no}`}
-                      className="flex items-center justify-between w-full p-3 bg-gray-800/70 hover:bg-gray-700 rounded-lg transition"
-                    >
-                      <span>Episode {episode.episode_no}</span>
-
-                      <span className="text-gray-400">▶</span>
-                    </NavLink>
-                  ))}
-                </div>
+              <div className="max-h-[600px] overflow-y-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:bg-gray-400 [&::-webkit-scrollbar-track]:bg-transparent p-3">
+                {episodeLists()}
               </div>
             </div>
           </div>
         </div>
       </div>
+
+    
     </div>
+
+   </>
+
   );
 };
 
