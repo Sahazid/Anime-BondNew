@@ -129,12 +129,12 @@ const NavBar = () => {
           {user ? (
             <div className="flex items-center gap-3">
               <img
-                src={user.photoURL}
-                alt={user.displayName}
+                src={user?.photoURL}
+                alt={user?.displayName}
                 className="w-10 h-10 rounded-full"
               />
 
-              <span className="font-bold">{user.displayName}</span>
+              <span className="font-bold">{user?.displayName}</span>
             </div>
           ) : (
             <button
@@ -145,14 +145,7 @@ const NavBar = () => {
             </button>
           )}
 
-          <NavLink to="/login">
-            <button
-              onClick={handleGoogleLogin}
-              className="bg-cyan-400 pt-2 pb-2 pl-4 pr-4 text-[1em] rounded-sm font-bold cursor-pointer"
-            >
-              Login
-            </button>
-          </NavLink>
+         
         </div>
       </nav>
     </div>
