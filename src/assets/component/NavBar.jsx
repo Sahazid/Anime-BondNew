@@ -42,8 +42,8 @@ const NavBar = () => {
             <i className="fa-solid fa-bars"></i>
           </div>
 
-          <NavLink to="/" className="text-2xl">
-            Anime <span className="text-cyan-200">Bond</span>.to
+          <NavLink to="/" className="text-md lg:text-2xl">
+            <h2 className="flex text-md">Anime <span className="text-cyan-200">Bond</span>.to</h2>
           </NavLink>
 
           <div className="relative flex">
@@ -112,9 +112,11 @@ const NavBar = () => {
             <i className="fa-solid fa-shuffle"></i>
           </div>
 
-          <button className="bg-cyan-400 pt-2 pb-2 pl-4 pr-4 text-[1em] rounded-sm font-bold">
+         <NavLink to="/login">
+           <button  className="bg-cyan-400 pt-2 pb-2 pl-4 pr-4 text-[1em] rounded-sm font-bold cursor-pointer">
             Login
           </button>
+         </NavLink>
 
         </div>
 

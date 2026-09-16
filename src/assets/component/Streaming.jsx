@@ -106,7 +106,7 @@ const Streaming = () => {
               {episodeData?.data?.player_data?.embed_url ? (
                 <div className="aspect-video w-full">
                   <iframe
-                    src={episodeData.data.player_data.embed_url}
+                    src={episodeData.data.player_data.embed_url+"?autoplay=1&mute=1"}
                     className="h-full w-full"
                     allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
                     allowFullScreen
