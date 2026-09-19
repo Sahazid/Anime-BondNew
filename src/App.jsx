@@ -1,10 +1,13 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Home from "./Pages/Home";
-import AnimeInfo from "./assets/component/AnimeInfo";
+import AnimeInfo from "./component/AnimeInfo";
 import Layout from "./Pages/Layout";
-import Streaming from "./assets/component/Streaming";
+import Streaming from "./component/Streaming";
 import Login from "./Pages/Login";
+import userContext from "./Context/UserContext";
+import Profile from "./Pages/Profile";
+
 // import LogoBgRemoved from './assets/component/heroImage/LogoBgRemoved.png'
 function App() {
   const router = createBrowserRouter([
@@ -29,9 +32,9 @@ function App() {
           element: <Streaming />,
         },
         {
-          path: "login",
-          element: <Login />
-        }
+          path: "profile",
+          element: <Profile />,
+        },
       ],
     },
   ]);
