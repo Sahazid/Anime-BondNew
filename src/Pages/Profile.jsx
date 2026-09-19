@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
-import userContext from "../Context/userContext";
+import userContext from "../Context/UserContext";
 
 const Profile = () => {
   const [watchedAnime, setWatchedAnime] = useState(null);

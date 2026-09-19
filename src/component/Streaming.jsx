@@ -4,7 +4,7 @@ import AnimeSlider from "./AnimeSlider";
 
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../FireBase/fireBase";
-import userContext from "../Context/userContext";
+import userContext from "../Context/UserContext";
 
 const Streaming = () => {
   const { id, episodeNumber } = useParams();

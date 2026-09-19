@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { getAuth, signOut } from "firebase/auth";
 import { auth, db, googleProvider } from "../FireBase/fireBase";
-import userContext from "../Context/userContext";
+import userContext from "../Context/UserContext";
 import { setDoc, doc } from "firebase/firestore";
 const NavBar = () => {
   const [search, setSearch] = useState("");
