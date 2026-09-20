@@ -116,6 +116,8 @@ const Watchlist = () => {
         )}
       </div>
     </section>
+
+    // WathList end
   );
 };
 
