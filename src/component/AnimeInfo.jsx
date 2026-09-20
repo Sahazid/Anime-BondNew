@@ -30,7 +30,7 @@ const AnimeInfo = () => {
   if (loading)
     return (
       <div className="flex justify-center items-center w-full h-screen text-white text-6xl">
-        Loading...
+        <span className="loading loading-spinner text-accent w-20 h-20"></span>
       </div>
     );
 
