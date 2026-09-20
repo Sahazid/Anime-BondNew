@@ -98,7 +98,7 @@ const Profile = () => {
           </div>
 
           {/* Anime Slider */}
-          <div className="h-[280px] flex justify-start items-center overflow-x-auto [&::-webkit-scrollbar]:h-3 [&::-webkit-scrollbar-thumb]:bg-gray-400 overflow-y-hidden gap-4 pb-2">
+          <div className="h-[310px] flex justify-start items-center overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:bg-gray-400 overflow-y-hidden gap-4 pb-2">
             {watchedAnime.length > 0 ? (
               watchedAnime.map((anime) => (
                 <NavLink

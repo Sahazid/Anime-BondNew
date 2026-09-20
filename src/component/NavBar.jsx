@@ -95,8 +95,9 @@ const NavBar = () => {
       <nav className="sm:pl-4 sm:pr-4 bg-[#202125]/50 pt-4 pb-4 text-white flex justify-between items-center lg:pl-16 lg:pr-16">
         <div className="flex gap-1 justify-start lg:flex lg:gap-10 lg:justify-center lg:items-center">
           <NavLink to="/" className="text-md lg:text-2xl">
-            <h2 className="flex text-md">
-              Anime <span className="text-cyan-200">Bond</span>.to
+            <h2 className="flex text-md font-bold">
+              Anime <span className="text-cyan-300">Bond</span>{" "}
+              <span className="text-red-700">.to</span>
             </h2>
           </NavLink>
 
