@@ -94,10 +94,6 @@ const NavBar = () => {
     <div className=" z-50 w-full sticky top-0">
       <nav className="sm:pl-4 sm:pr-4 bg-[#202125]/50 pt-4 pb-4 text-white flex justify-between items-center lg:pl-16 lg:pr-16">
         <div className="flex gap-1 justify-start lg:flex lg:gap-10 lg:justify-center lg:items-center">
-          <div className=" lg:text-2xl">
-            <i className="fa-solid fa-bars"></i>
-          </div>
-
           <NavLink to="/" className="text-md lg:text-2xl">
             <h2 className="flex text-md">
               Anime <span className="text-cyan-200">Bond</span>.to
@@ -157,12 +153,17 @@ const NavBar = () => {
           </div>
         </div>
 
+        {/* WatchList  */}
+        <div>
+          <NavLink to="watchList">
+            <h2 className="bg-cyan-800 pr-3 pl-3 pt-2 pb-2 rounded-sm font-bold hover:bg-cyan-500 cursor-pointer">
+              Watchlist
+            </h2>
+          </NavLink>
+        </div>
+
         {/* Button and User Profile */}
         <div className="sm:pr-5 flex gap-10 items-center ">
-          <div className="text-2xl hidden md:flex lg:flex">
-            <i className="fa-solid fa-shuffle"></i>
-          </div>
-
           {user ? (
             <div className="flex items-center gap-3">
               <NavLink to="/profile">

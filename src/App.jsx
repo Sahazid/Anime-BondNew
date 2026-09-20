@@ -7,6 +7,7 @@ import Streaming from "./component/Streaming";
 import Login from "./Pages/Login";
 import userContext from "./Context/UserContext";
 import Profile from "./Pages/Profile";
+import Watchlist from "./Pages/WatchList";
 
 // import LogoBgRemoved from './assets/component/heroImage/LogoBgRemoved.png'
 function App() {
@@ -34,6 +35,10 @@ function App() {
         {
           path: "profile",
           element: <Profile />,
+        },
+        {
+          path: "watchList",
+          element: <Watchlist />,
         },
       ],
     },

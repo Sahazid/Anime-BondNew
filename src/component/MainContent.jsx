@@ -1,18 +1,112 @@
-import React, { useState } from "react";
-import AnimeInfo from "./AnimeInfo";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import {
+  collection,
+  doc,
+  getDocs,
+  serverTimestamp,
+  setDoc,
+  deleteDoc,
+} from "firebase/firestore";
+
+import userContext from "../Context/UserContext";
+import { db } from "../FireBase/fireBase";
 
 const MainContent = ({ animeAll }) => {
   const [clickedImage, setClickedImage] = useState("");
+  const [watchlist, setWatchlist] = useState([]);
+
+  const { user } = useContext(userContext);
 
   const handleClickedImage = (iD) => {
     setClickedImage(iD);
   };
 
+  // Get user's watchlist
+  useEffect(() => {
+    const getWatchlist = async () => {
+      if (!user) {
+        setWatchlist([]);
+        return;
+      }
+
+      try {
+        const watchlistRef = collection(db, "users", user.uid, "watchlist");
+
+        const snapshot = await getDocs(watchlistRef);
+
+        const animeList = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setWatchlist(animeList);
+      } catch (error) {
+        console.error("Error getting watchlist:", error);
+      }
+    };
+
+    getWatchlist();
+  }, [user]);
+
+  // Add / Remove anime from watchlist
+  const handleWatchlist = async (e, anime) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!user) {
+      alert("Please login first to use the watchlist.");
+      return;
+    }
+
+    const animeId = String(anime.anilist_id);
+
+    const alreadyAdded = watchlist.some((item) => item.id === animeId);
+
+    try {
+      const watchlistRef = doc(db, "users", user.uid, "watchlist", animeId);
+
+      if (alreadyAdded) {
+        // Remove from watchlist
+        await deleteDoc(watchlistRef);
+
+        setWatchlist((previousList) =>
+          previousList.filter((item) => item.id !== animeId),
+        );
+
+        console.log("Removed from watchlist");
+      } else {
+        // Add to watchlist
+        const animeData = {
+          animeId: animeId,
+          name: anime.title.romaji,
+          poster: anime.poster,
+          addedAt: serverTimestamp(),
+        };
+
+        await setDoc(watchlistRef, animeData);
+
+        setWatchlist((previousList) => [
+          ...previousList,
+          {
+            id: animeId,
+            ...animeData,
+          },
+        ]);
+
+        console.log("Added to watchlist");
+      }
+    } catch (error) {
+      console.error("Watchlist error:", error);
+    }
+  };
+
   const animeItems = animeAll.map((anime) => {
     const poster = anime.poster;
     const name = anime.title.romaji;
-    const iD = anime.anilist_id;
+    const iD = String(anime.anilist_id);
+
+    const alreadyAdded = watchlist.some((item) => item.id === iD);
 
     return (
       <div
@@ -60,6 +154,18 @@ const MainContent = ({ animeAll }) => {
             </div>
           </div>
         </NavLink>
+
+        {/* Watchlist Button */}
+        <button
+          onClick={(e) => handleWatchlist(e, anime)}
+          className={`absolute cursor-pointer top-3 right-3 z-10 px-3 py-2 rounded-lg text-sm font-bold transition ${
+            alreadyAdded
+              ? "bg-red-600 hover:bg-red-700 text-white"
+              : "bg-cyan-600 hover:bg-cyan-700 text-white"
+          }`}
+        >
+          {alreadyAdded ? "Remove from Watchlist" : "Add to Watchlist"}
+        </button>
       </div>
     );
   });
@@ -77,8 +183,6 @@ const MainContent = ({ animeAll }) => {
           {animeItems}
         </div>
       </div>
-
-      {/* <AnimeInfo clickedImage={clickedImage} /> */}
     </>
   );
 };
