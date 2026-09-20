@@ -156,8 +156,8 @@ const NavBar = () => {
         {/* WatchList  */}
         <div>
           <NavLink to="watchList">
-            <h2 className="bg-cyan-800 pr-3 pl-3 pt-2 pb-2 rounded-sm font-bold hover:bg-cyan-500 cursor-pointer">
-              Watchlist
+            <h2 className="bg-cyan-800/40 pr-3 pl-3 pt-2 pb-2 rounded-sm font-bold hover:bg-cyan-500 cursor-pointer">
+              Watch List
             </h2>
           </NavLink>
         </div>

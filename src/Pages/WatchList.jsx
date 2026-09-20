@@ -77,13 +77,6 @@ const Watchlist = () => {
             </h2>
 
             <p className="text-gray-400 mt-3">Login to see your watchlist.</p>
-
-            <NavLink
-              to="/login"
-              className="inline-block mt-6 bg-cyan-700 hover:bg-cyan-600 text-white px-6 py-3 rounded-lg"
-            >
-              Login
-            </NavLink>
           </div>
         ) : watchlist.length === 0 ? (
           <div className="text-center py-20">
